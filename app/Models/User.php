@@ -7,10 +7,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
+use Bavix\Wallet\Traits\HasWallet;
+use Bavix\Wallet\Interfaces\Wallet;
+use App\Observers\UserObserver;
 
-class User extends Authenticatable
+
+class User extends Authenticatable  implements Wallet
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles,HasWallet;
 
     /**
      * The database table used by the model.
@@ -60,4 +65,13 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = bcrypt($value);
     }
+
+    public static function boot(): void
+    {    parent::boot();
+
+        User::observe(UserObserver::class);
+
+    }
+
+
 }

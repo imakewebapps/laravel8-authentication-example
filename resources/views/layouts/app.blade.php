@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.87.0">
-    <title>Fixed top navbar example · Bootstrap v5.1</title>
+    <title>Our New Application</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{!! url('assets/bootstrap/css/bootstrap.min.css') !!}" rel="stylesheet">
@@ -27,19 +27,21 @@
       }
     </style>
 
-    
+
     <!-- Custom styles for this template -->
     <link href="{!! url('assets/css/app.css') !!}" rel="stylesheet">
+    <link href="{!! url('css/style.css') !!}" rel="stylesheet">
 </head>
 <body>
-    
+
     @include('layouts.partials.navbar')
 
-    <main class="container">
+    <main class="@guest container @endguest" style="overflow-y:visible;">
+        @include('layouts.partials.sidebar')
         @yield('content')
     </main>
 
     <script src="{!! url('assets/bootstrap/js/bootstrap.bundle.min.js') !!}"></script>
-      
+
   </body>
 </html>
